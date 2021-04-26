@@ -1,10 +1,9 @@
 #include <iostream>
-#include <string>
 #include <bitset>
 
 using namespace std;
 
-string suma_bit(string n1, string n2){
+string suma_bit(string n1, string n2){ //suma 2 numeros binarios del mismo tamaño y devuelve el ersultado
     char almacen[n1.size()];
     string result;
     bool up = false;
@@ -41,7 +40,7 @@ string suma_bit(string n1, string n2){
     return result;
 }
 
-string derecha(string arr){
+string derecha(string arr){ //mueve cada caracter del numero binario una posicion a la derecha y repite en la primera posicion el numero que le sigue
     for (int i = arr.size()-1; i > 0; i--) {
         arr[i] = arr[i-1];
     }
@@ -56,8 +55,8 @@ int main(){
     bitset<4> mur (string("0011"));
     bitset<4> uno (string("1"));
     comp = mul;
-    comp.flip();
-    string M = mul.to_string<char,string::traits_type,string::allocator_type>();
+    comp.flip(); //invierte el numero binario
+    string M = mul.to_string<char,string::traits_type,string::allocator_type>(); //convierte bitset a string
     string Q = mur.to_string<char,string::traits_type,string::allocator_type>();
     string A = comp.to_string<char,string::traits_type,string::allocator_type>();
     string un = uno.to_string<char,string::traits_type,string::allocator_type>();
@@ -74,18 +73,18 @@ int main(){
     cout<<"PROCESO: "<<endl;
     cout<<M<<endl<<A<<endl<<Q<<endl;
     for (int i = 0; i < tam; ++i) {
-        if (Q[Q.size()-2] == '0' and Q[Q.size()-1] == '0'){
+        if (Q[Q.size()-2] == '0' and Q[Q.size()-1] == '0'){ // "00", desplaza a la derecha
             Q = derecha(Q);
         }
-        else if (Q[Q.size()-2] == '1' and Q[Q.size()-1] == '0'){
+        else if (Q[Q.size()-2] == '1' and Q[Q.size()-1] == '0'){ //"10", suma Q y A, y desplaza a la derecha
             Q = suma_bit(Q, A);
             Q = derecha(Q);
         }
-        else if (Q[Q.size()-2] == '0' and Q[Q.size()-1] == '1'){
+        else if (Q[Q.size()-2] == '0' and Q[Q.size()-1] == '1'){ //"01", suma Q y M, y desplaza a la derecha
             Q = suma_bit(Q, M);
             Q = derecha(Q);
         }
-        else if (Q[Q.size()-2] == '1' and Q[Q.size()-1] == '1'){
+        else if (Q[Q.size()-2] == '1' and Q[Q.size()-1] == '1'){ // "11", desplaza a la derecha
             Q = derecha(Q);
         }
         cout<<Q<<endl;
